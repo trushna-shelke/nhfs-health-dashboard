@@ -16,7 +16,9 @@ st.set_page_config(
     page_title="Social Factors and Health Outcomes",
     page_icon="🎓",
     layout="wide",
+    
 )
+
 
 # --- GLOBAL STYLE: BIGGER FONT ---
 st.markdown("""
@@ -317,4 +319,6 @@ with tab4:
                 st.success(f"Predicted {y_var} = {new_y:.2f}")
     else:
         st.info("Please upload your Excel file to proceed.")
-
+st.markdown("---")
+st.markdown("**Author — Trushna Shelke**")
+st.markdown("[🔗 Connect on LinkedIn](https://www.linkedin.com/in/trushna-shelke-6b9a69230)")
