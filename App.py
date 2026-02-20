@@ -129,7 +129,7 @@ with tab2:
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
     # Load data
-    data = pd.read_excel("C:\\New folder (4)\\final_data.xlsx")
+    data = pd.read_excel("final_data.xlsx")
 
     st.title("📈 Objectives And Introduction to Data")
 
@@ -198,15 +198,7 @@ with tab3:
 
     with col1:
         # Display the Power BI dashboard image
-        st.image("C:\\Users\\Admin\\Pictures\\Screenshots\\Screenshot (93).png", caption="Power BI Dashboard Overview", width=1200)
-
-        with open("C:\\New folder (4)\\Dashboard.pbix", "rb") as file:
-            st.download_button(
-                label="📥 Download and Open Power BI Dashboard",
-                data=file,
-                file_name="Dashboard.pbix",
-                mime="application/octet-stream"
-            )
+        st.image("Screenshot.png", caption="Power BI Dashboard Overview", width=1200)
 
     with col2:
         # Display the conclusion in the second column
@@ -250,7 +242,7 @@ with tab3:
 with tab4:
     st.title("📈 Influence of Women's Life Circumstances on Child Health Outcomes")
 
-    uploaded_file = "C:\\New folder (4)\\final_data.xlsx"
+    uploaded_file = "final_data.xlsx"
 
     if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
