@@ -115,6 +115,82 @@ div[data-baseweb="tab-border"] {{
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+
+/* ===== Default (Desktop / PC) ===== */
+.logo-overlay img {
+    width: 250px;
+}
+
+div[data-baseweb="tab-list"] {
+    top: 70px !important;
+    margin-left: 260px !important;
+}
+
+.block-container {
+    padding-top: 60px !important;
+}
+
+/* ===== Mobile adjustments ===== */
+@media (max-width: 768px) {
+
+    /* Smaller logo */
+    .logo-overlay img {
+        width: 140px !important;
+    }
+
+    /* Tabs centered + smaller */
+    div[data-baseweb="tab-list"] {
+        position: sticky !important;
+        top: 10px !important;
+        margin-left: 0 !important;
+        justify-content: center !important;
+        background: rgba(255,255,255,0.95) !important;
+    }
+
+    /* Reduce padding */
+    .block-container {
+        padding-top: 20px !important;
+    }
+
+    /* Smaller headings */
+    h1 {
+        font-size: 22px !important;
+    }
+
+    h2 {
+        font-size: 18px !important;
+    }
+
+    h3 {
+        font-size: 16px !important;
+    }
+
+    /* Glass card width */
+    .glass {
+        width: 95% !important;
+    }
+
+    /* Footer position */
+    .footer {
+        bottom: 10px !important;
+        right: 10px !important;
+        font-size: 14px !important;
+    }
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+body {
+    color: #0f172a !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # --- Tabs ---
 tab1, tab2, tab3, tab4 = st.tabs(["Topic", "Objective", "EDA", "Regression"])
 
@@ -292,7 +368,7 @@ with tab3:
     
     with col1:
         # Display the Power BI dashboard image
-        st.image("Screenshot.png", caption="Power BI Dashboard Overview", width=700)
+        st.image("Screenshot.png", use_container_width=True)
 
     with col2:
      st.markdown("""
