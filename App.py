@@ -223,7 +223,12 @@ with tab2:
 
     # -------- Load data --------
     data = pd.read_excel("final_data.xlsx")
-
+    st.markdown(f"""
+     <style>
+     left: 2px;
+     </style>
+     </div>
+     """, unsafe_allow_html=True)
     # -------- Title --------
     st.markdown("<h1 style='font-size:26px;'>📈 Objectives And Introduction to Data</h1>", unsafe_allow_html=True)
 
