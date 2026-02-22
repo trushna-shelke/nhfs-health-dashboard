@@ -1,3 +1,4 @@
+
 # --- Basic Imports ---
 import streamlit as st
 import pandas as pd
@@ -34,91 +35,7 @@ bg = get_base64(bg_path)
 
 logo_path = "TS_logo.png"
 logo = get_base64(logo_path)
-st.markdown(f"""
-<style>
-.logo-overlay {{
-    position: fixed;
-    top: 20px;
-    left: 2px;
-    opacity: 0.95;
-    z-index: 999;
-}}
-</style>
 
-<div class="logo-overlay">
-    <img src="data:image/png;base64,{logo}" width="250">
-</div>
-""", unsafe_allow_html=True)
-
-# Correct way to write the markdown block
-st.markdown(f"""
-<style>
-.stApp {{
-    background-image: url("data:image/png;base64,{bg}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}}
-/* Footer */
-.footer {{
-    position: fixed;
-    bottom: 40px;
-    right: 25px;
-    font-size: 17px;
-    font-weight: 700;
-    color: #000000;
-}}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown(
-    '<div class="footer">Author - Trushna Shelke | '
-    '<a href="https://www.linkedin.com/in/trushna-shelke-6b9a69230" target="_blank">LinkedIn</a>'
-    '</div>',
-    unsafe_allow_html=True
-)
-
-
-st.markdown(f"""
-<style>
-# --- Basic Imports ---
-import streamlit as st
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-import io
-import statsmodels.api as sm
-from scipy.stats import bartlett, ttest_ind, chi2_contingency, kstest, lognorm, shapiro
-from statsmodels.stats.multicomp import pairwise_tukeyhsd
-from statsmodels.stats.anova import anova_lm 
-from statsmodels.formula.api import ols
-import streamlit as st
-import base64
-import os
-
-# --- Page Configuration ---
-st.set_page_config(
-    page_title="Social Factors and Health Outcomes",
-    page_icon="🎓",
-    layout="wide",
-)
-
-# ---------- Load background ----------
-def get_base64(file):
-    if os.path.exists(file):
-        with open(file, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    return ""
-
-# Ensure these lines are BEFORE the st.markdown block
-bg_path = "background.png" 
-bg = get_base64(bg_path)
-
-logo_path = "TS_logo.png"
-logo = get_base64(logo_path)
-st.markdown(f"""
 st.markdown(f"""
 <style>
 .logo-overlay {{
