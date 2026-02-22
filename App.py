@@ -10,50 +10,106 @@ from scipy.stats import bartlett, ttest_ind, chi2_contingency, kstest, lognorm, 
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 from statsmodels.stats.anova import anova_lm 
 from statsmodels.formula.api import ols
+import streamlit as st
+import base64
+import os
 
 # --- Page Configuration ---
 st.set_page_config(
     page_title="Social Factors and Health Outcomes",
     page_icon="🎓",
     layout="wide",
-    
+)
+
+# ---------- Load background ----------
+def get_base64(file):
+    if os.path.exists(file):
+        with open(file, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    return ""
+
+# Ensure these lines are BEFORE the st.markdown block
+bg_path = "background.png" 
+bg = get_base64(bg_path)
+
+logo_path = "TS_logo.png"
+logo = get_base64(logo_path)
+st.markdown(f"""
+<style>
+.logo-overlay {{
+    position: fixed;
+    top: 20px;
+    left: 2px;
+    opacity: 0.95;
+    z-index: 999;
+}}
+</style>
+
+<div class="logo-overlay">
+    <img src="data:image/png;base64,{logo}" width="250">
+</div>
+""", unsafe_allow_html=True)
+
+# Correct way to write the markdown block
+st.markdown(f"""
+<style>
+.stApp {{
+    background-image: url("data:image/png;base64,{bg}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}}
+/* Footer */
+.footer {{
+    position: fixed;
+    bottom: 15px;
+    right: 25px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000000;
+}}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown(
+    '<div class="footer">Author - Trushna Shelke | '
+    '<a href="https://www.linkedin.com/in/trushna-shelke-6b9a69230" target="_blank">LinkedIn</a>'
+    '</div>',
+    unsafe_allow_html=True
 )
 
 
-# --- GLOBAL STYLE: BIGGER FONT ---
-st.markdown("""
+st.markdown(f"""
 <style>
-/* Make all main text bigger */
-html, body, [class*="css"] {
-    font-size: 22px;
-}
 
-/* Make headings bigger */
-h1 {
-    font-size: 40px;
-}
-h2 {
-    font-size: 32px;
-}
-h3 {
-    font-size: 28px;
-}
-h4 {
-    font-size: 24px;
-}
+/* 1. Pin the Tabs (Topic, Objective, etc.) */
+div[data-baseweb="tab-list"] {{
+    position: fixed !important;
+    top: 70px !important;      /* Keeps them at the current height */
+    margin-left: 260px !important;
+    z-index: 1000 !important;
+    background-color: transparent !important;
+    width: auto !important;
+    display: flex !important;
+}}
 
-/* Make table text bigger */
-thead tr th {
-    font-size: 22px !important;
-}
-tbody tr td {
-    font-size: 20px !important;
-}
+/* 2. Pin the Underline Border Line */
+div[data-baseweb="tab-border"] {{
+    position: fixed !important;
+    top: 115px !important;       /* Pins it exactly under the tab text */
+    margin-left: 100px !important;
+    z-index: 999 !important;
+    width: 70% !important;      /* Matches the look in your screenshot */
+    height: 1px !important;
+    background-color: rgba(0,0,0,0.2) !important;
+}}
 
-/* Increase padding inside the page */
-div.block-container {
-    padding: 3rem 5rem;
-}
+/* 3. This pushes your main content down so it doesn't hide behind the fixed tabs */
+.block-container {{
+    padding-top: 40px !important;
+}}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -63,115 +119,149 @@ tab1, tab2, tab3, tab4 = st.tabs(["Topic", "Objective", "EDA", "Regression"])
 
 # ---------------------- Tab 1: Project Topic ----------------------
 with tab1:
-    # Background
-    page_bg_img = '''
+    # Correct way to write the markdown block
+    st.markdown(f"""
     <style>
-    .stApp {
-        background-image: url("https://images.unsplash.com/photo-1557683316-973673baf926");
-        background-size: cover;
-        background-attachment: fixed;
-    }
-    div.block-container {
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 10px;
-        padding: 2rem;
-    }
+    /* This centers the "Data Analytics Portfolio" line */
+    .brand {{
+        font-size: 40px; 
+        font-weight: 800;
+        color: #0f172a;
+        text-align: center; 
+        width: 100%;
+        margin-top: -10px;
+    }}
+
+    /* This pushes the box down so it doesn't hide your logo */
+    .glass {{
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.8);
+        padding: 15px 25px; 
+        border-radius: 20px;
+        margin-top: 7px; 
+        text-align: center;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }}
+
+    /* This keeps the title on ONE line */
+    .title {{
+        font-size: 26px; 
+        font-weight: 850;
+        background: linear-gradient(90deg, #2563eb, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        white-space: nowrap; 
+    }}
+
+    /* Tightens spacing to ensure it fits on one page */
+    .content-section {{
+        margin-top: 15px;
+        padding-left: 10%;
+    }}
+
+    .module-list {{
+        margin-top: 10px;
+        list-style-type: none;
+        padding-left: 0;
+    }}
+
+    .module-list li {{
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }}
+
+    .module-list li::before {{
+        content: "•";
+        color: #2563eb;
+        font-weight: bold;
+        display: inline-block; 
+        width: 1em;
+        margin-left: 0;
+
     </style>
-    '''
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+    # Brand Name (Aligned Right)
+    st.markdown('<div class="brand">Data Analytics Portfolio</div>', unsafe_allow_html=True)
 
-    st.write("")
-    st.write("")
-
-    # College name and project info
+    # Glass Box (Centered & Narrower)
     st.markdown("""
-    <h1 style='text-align: center; color: #2E86C1;'>Modern College of Arts, Commerce and Science</h1>
-    <h2 style='text-align: center; color: #2E86C1;'>Shivajinagar, Pune-05</h2>
-    <h3 style='text-align: center; color: #117A65;'>Department of Statistics</h3>
+    <div class="glass">
+        <div class="title">Social Factors & Health Outcomes</div>
+    </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("---")
+    # Description & Vertical Bullets
+    with st.container():
+        st.markdown("""
+    <div class="content-section">
+    <div class="subtitle"><b>Case Study Overview</b></div>
 
-    st.markdown("""
-    <h2 style='text-align: center; color: #AF7AC5;'>Project Title</h2>
-    <h1 style='text-align: center; color: #884EA0;'> "A Comprehensive Study of Social Factors and Health Outcomes in India" </h1>
+    <div class="desc-text" style="margin-bottom: 5px;">
+    Explore how social determinants influence public health outcomes through interactive analytics powered by NFHS data.
+    </div>
+
+    <ul class="module-list" style="margin-top: 5px;">
+    <b>Core Modules</b></li>
+    <li>Data Exploration</li>
+    <li>Visualization</li>
+    <li>Statistical Modeling</li>
+    <li>Insight Storytelling</li>
+    </ul>
+    </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <h3 style='text-align: center;'>Presented by</h3>
-    <h4 style='text-align: center;'>Trushna Shelke-2434331</h4>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <h3 style='text-align: center;'>Under the Guidance of</h3>
-    <h4 style='text-align: center;'>Mrs. Gauri Kulkarni</h4>
-    """, unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.markdown("<p style='text-align: center; font-size: 18px;'>Academic Year 2024-2025</p>", unsafe_allow_html=True)
-
 
 # ---------------------- Tab 2: Objective and Dataset ----------------------
 with tab2:
-    # Background
-    page_bg_img = '''
-    <style>
-    .stApp {
-        background-image: url("https://images.unsplash.com/photo-1557683316-973673baf926");
-        background-size: cover;
-        background-attachment: fixed;
-    }
-    div.block-container {
-        background-color: rgba(255, 255, 255, 0.85);
-        border-radius: 10px;
-        padding: 2rem;
-    }
-    </style>
-    '''
-    st.markdown(page_bg_img, unsafe_allow_html=True)
 
-    # Load data
+
+    # -------- Load data --------
     data = pd.read_excel("final_data.xlsx")
 
-    st.title("📈 Objectives And Introduction to Data")
+    # -------- Title --------
+    st.markdown("<h1 style='font-size:26px;'>📈 Objectives And Introduction to Data</h1>", unsafe_allow_html=True)
 
-    # Objectives
-    st.header("🎯 Project Objectives")
+    # -------- Objectives --------
+    st.markdown("<h2 style='font-size:22px;'>🎯 Project Objectives</h2>", unsafe_allow_html=True)
     st.markdown("""
-    - **Clustering of Indian States based on Empowerment Indicators**  
-    - **Impact of Lifestyle Habits on Men's Health in India**  
-    - **Influence of Women's Life Circumstances on Child Health Outcomes**
+    - Clustering of Indian States based on Empowerment Indicators  
+    - Impact of Lifestyle Habits on Men's Health in India  
+    - Influence of Women's Life Circumstances on Child Health Outcomes
     """)
 
-    # About data
-    st.header("📊 About the Data")
+    # -------- About data --------
+    st.markdown("<h2 style='font-size:22px;'>📊 About the Data</h2>", unsafe_allow_html=True)
 
-    st.subheader("🔹 Short Background")
+    st.markdown("<h3 style='font-size:18px;'>🔹 Short Background</h3>", unsafe_allow_html=True)
     st.markdown("""
     This project examines women's empowerment across rural and urban India, focusing on women aged 15–49 using NFHS-5 data.  
     It covers literacy, marriage age, decision-making, economic independence, and digital inclusion.  
     By comparing rural and urban trends, the study highlights how women's empowerment impacts broader health outcomes.
     """)
 
-    st.subheader("🔹 Source of Data")
+    st.markdown("<h3 style='font-size:18px;'>🔹 Source of Data</h3>", unsafe_allow_html=True)
     st.markdown("""
-    - **National Family Health Survey (NFHS-5)**  
-    - **NFHS website**
+    - National Family Health Survey (NFHS-5)  
+    - NFHS website
     """)
 
-    # Preview data
-    st.header("🔎 Dataset Preview")
+    # -------- Preview --------
+    st.markdown("<h2 style='font-size:22px;'>🔎 Dataset Preview</h2>", unsafe_allow_html=True)
     st.dataframe(data.head())
 
-    # Dataset dimensions
-    st.header("📏 Dataset Dimensions")
-    st.success(f"The dataset contains **{data.shape[0]} rows** and **{data.shape[1]} columns**.")
+    # -------- Dimensions --------
+    st.markdown("<h2 style='font-size:22px;'>📏 Dataset Dimensions</h2>", unsafe_allow_html=True)
+    st.success(f"The dataset contains {data.shape[0]} rows and {data.shape[1]} columns.")
 
-    # Summary Statistics
-    st.header("📈 Summary Statistics")
+    # -------- Summary --------
+    st.markdown("<h2 style='font-size:22px;'>📈 Summary Statistics</h2>", unsafe_allow_html=True)
     st.dataframe(data.describe())
 
-    # Download button
+    # -------- Download --------
     buffer = io.BytesIO()
     with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
         data.to_excel(writer, index=False)
@@ -183,66 +273,47 @@ with tab2:
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
 
-    st.markdown("---")
-    st.caption("Developed as part of MSc Statistics Project | © 2025")
-
-
-
 # ---------------------- Tab 3: EDA - Power BI ----------------------
 import streamlit as st
 
 with tab3:
-    st.header("📊 Power BI Dashboard Overview")
-    st.markdown("Here is a glimpse of the Power BI dashboard used in our project:")
+    
+    st.markdown("<h1 style='font-size:26px; font-weight:700;'>📊 Power BI Dashboard Overview</h1>", unsafe_allow_html=True)
 
     # Create two columns for side-by-side layout
-    col1, col2 = st.columns([2, 1])  # The numbers indicate the relative width of the columns
-
+    col1, col2 = st.columns([2.2, 1.1])  # The numbers indicate the relative width of the columns
+    
     with col1:
         # Display the Power BI dashboard image
-        st.image("Screenshot.png", caption="Power BI Dashboard Overview", width=1200)
+        st.image("Screenshot.png", caption="Power BI Dashboard Overview", width=700)
 
     with col2:
-        # Display the conclusion in the second column
-        st.subheader("📊 Dashboard Conclusion")
+     st.markdown("""
+    <div style="
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.92);
+        padding: 25px;
+        border-radius: 40px;
+        margin-top: 7px;
+        box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+        line-height: 1.7;
+    ">
+    <h3 style="margin-top:0;">📊 Dashboard Conclusion</h3>
 
-        # Apply styling for the conclusion
-        st.markdown("""
-        <style>
-        ul {
-            font-size: 18px;
-        }
-        li {
-            margin-bottom: 15px;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    <p>1️⃣ Currently Married Women Participation improving</p>
+    <p>2️⃣ Women Property Ownership varies across states</p>
+    <p>3️⃣ Violence during pregnancy remains a concern</p>
+    <p>4️⃣ Child marriage declining but present</p>
+    <p>5️⃣ Property ownership linked to empowerment</p>
+    <p>6️⃣ Digital inclusion increasing nationwide</p>
 
-        # Conclusion content
-        st.markdown("""
-        - **1️⃣ Currently Married Women Participating in Household Decisions:**  
-          Participation in three major household decisions has steadily increased across states, highlighting a positive trend in women’s domestic empowerment.
-
-        - **2️⃣ Women Owning House or Land (States/UTs):**  
-          Significant variations exist across states, with some regions showing strong female property ownership while others still lag behind.
-
-        - **3️⃣ Women Experiencing Physical Violence During Pregnancy:**  
-          Around **61%** of women experience violence during pregnancy, emphasizing a critical social challenge that needs urgent action.
-
-        - **4️⃣ Women Aged 20-24 Married Before Age 18:**  
-          Child marriage remains a concern in states like **West Bengal** and **Bihar**, although many areas are showing encouraging declines.
-
-        - **5️⃣ Women Owning House/Land (Specific States):**  
-          States such as **Telangana** and **Ladakh** exhibit higher percentages of women owning property, supporting greater financial independence.
-
-        - **6️⃣ Women Having Mobile Phones and Savings Accounts:**  
-          Access to mobile phones and banking services is notably high in **Karnataka** and **Telangana**, driving digital and financial empowerment.
-        """)
-
-
+    </div>
+    """, unsafe_allow_html=True)
+    
 # ---------------------- Tab 4: Regression ----------------------
 with tab4:
-    st.title("📈 Influence of Women's Life Circumstances on Child Health Outcomes")
+    st.markdown('<div class="reg-tab">', unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size:26px; font-weight:700;'>📈 Influence of Women's Life Circumstances on Child Health Outcomes</h1>", unsafe_allow_html=True)
 
     uploaded_file = "final_data.xlsx"
 
@@ -292,7 +363,7 @@ with tab4:
                 col1, col2 = st.columns(2)
 
                 with col1:
-                    st.subheader(f"Scatter Plot: {y_var} vs {x_var}")
+                    st.markdown(f"<h3 style='font-size:18px;'>Scatter Plot: {y_var} vs {x_var}</h3>", unsafe_allow_html=True)
                     fig, ax = plt.subplots()
                     ax.scatter(X, y, color='blue', label='Data Points')
                     ax.plot(X, y_pred, color='red', label='Regression Line')
@@ -303,7 +374,7 @@ with tab4:
                     st.pyplot(fig)
 
                 with col2:
-                    st.subheader("Regression Interpretation")
+                    st.markdown("<h3 style='font-size:18px;'>Regression Interpretation</h3>", unsafe_allow_html=True)
                     st.markdown(f"""
                     - *Interpretation: For every 1 unit increase in **{x_var}**, **{y_var}** {direction} by about *{abs(beta1):.2f}* units.
                     - *R² = {r2:.2f}* (explains {r2*100:.1f}% variation in {y_var})
@@ -314,11 +385,11 @@ with tab4:
                         st.text(model.summary())
 
                 st.subheader(f"Predict {y_var} Based on New {x_var} Value")
+                st.markdown(f"<h3 style='font-size:18px;'>Predict {y_var} Based on New {x_var} Value", unsafe_allow_html=True)
                 new_x = st.number_input(f"Enter a new value for {x_var}:", value=float(X.mean()), key=f"predict_{y_var}")
                 new_y = model.predict([1, new_x])[0]
                 st.success(f"Predicted {y_var} = {new_y:.2f}")
     else:
         st.info("Please upload your Excel file to proceed.")
-st.markdown("---")
-st.markdown("**Author — Trushna Shelke**")
-st.markdown("[🔗 Connect on LinkedIn](https://www.linkedin.com/in/trushna-shelke-6b9a69230)")
+ 
+    st.markdown('</div>', unsafe_allow_html=True)
