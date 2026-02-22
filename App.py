@@ -63,7 +63,7 @@ st.markdown(f"""
 /* Footer */
 .footer {{
     position: fixed;
-    bottom: 15px;
+    bottom: 40px;
     right: 25px;
     font-size: 17px;
     font-weight: 700;
