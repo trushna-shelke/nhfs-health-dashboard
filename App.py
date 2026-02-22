@@ -109,7 +109,9 @@ div[data-baseweb="tab-border"] {{
 .block-container {{
     padding-top: 40px !important;
 }}
-
+.block-container {{
+    padding-top: 160px !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
