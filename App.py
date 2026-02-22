@@ -79,7 +79,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
+# Create space equal to header height
+st.markdown(
+    "<div style='height:120px'></div>",
+    unsafe_allow_html=True
+)
 st.markdown(f"""
 <style>
 
@@ -92,10 +96,17 @@ div[data-baseweb="tab-list"] {{
     background-color: transparent !important;
     width: auto !important;
     display: flex !important;
+    
+}}
+/* Fixed tabs */
+div[data-baseweb="tab-list"] {{
+    position: fixed !important;
+    top: 70px !important;
+    margin-left: 260px !important;
+    z-index: 9999 !important;
     background: rgba(255,255,255,0.85) !important;
     backdrop-filter: blur(6px);
 }}
-
 
 /* 2. Pin the Underline Border Line */
 div[data-baseweb="tab-border"] {{
@@ -113,7 +124,7 @@ div[data-baseweb="tab-border"] {{
     padding-top: 40px !important;
 }}
 .block-container {{
-    padding-top: 100px !important;
+    padding-top: 160px !important;
 }}
 </style>
 """, unsafe_allow_html=True)
