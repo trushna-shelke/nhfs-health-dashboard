@@ -119,6 +119,7 @@ bg = get_base64(bg_path)
 logo_path = "TS_logo.png"
 logo = get_base64(logo_path)
 st.markdown(f"""
+st.markdown(f"""
 <style>
 .logo-overlay {{
     position: fixed;
