@@ -92,7 +92,10 @@ div[data-baseweb="tab-list"] {{
     background-color: transparent !important;
     width: auto !important;
     display: flex !important;
+    background: rgba(255,255,255,0.85) !important;
+    backdrop-filter: blur(6px);
 }}
+
 
 /* 2. Pin the Underline Border Line */
 div[data-baseweb="tab-border"] {{
@@ -110,7 +113,7 @@ div[data-baseweb="tab-border"] {{
     padding-top: 40px !important;
 }}
 .block-container {{
-    padding-top: 160px !important;
+    padding-top: 100px !important;
 }}
 </style>
 """, unsafe_allow_html=True)
