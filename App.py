@@ -225,7 +225,7 @@ with tab2:
     data = pd.read_excel("final_data.xlsx")
     st.markdown(f"""
      <style>
-     left: 2px;
+     left: 200px;
      </style>
      </div>
      """, unsafe_allow_html=True)
