@@ -1,4 +1,4 @@
-# --- Basic Imports ---
+## --- Basic Imports ---
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -38,15 +38,15 @@ st.markdown(f"""
 <style>
 .logo-overlay {{
     position: fixed;
-    top: 20px;
-    left: 2px;
+    top: 15px;
+    left:-40px;
     opacity: 0.95;
     z-index: 999;
 }}
 </style>
 
 <div class="logo-overlay">
-    <img src="data:image/png;base64,{logo}" width="250">
+    <img src="data:image/png;base64,{logo}" width="400">
 </div>
 """, unsafe_allow_html=True)
 
@@ -63,9 +63,9 @@ st.markdown(f"""
 /* Footer */
 .footer {{
     position: fixed;
-    bottom: 15px;
+    bottom: 100px;
     right: 25px;
-    font-size: 17px;
+    font-size: 25px;
     font-weight: 700;
     color: #000000;
 }}
@@ -83,25 +83,37 @@ st.markdown(
 st.markdown(f"""
 <style>
 
-/* 1. Pin the Tabs (Topic, Objective, etc.) */
+/* 1. Pin the Tabs */
 div[data-baseweb="tab-list"] {{
     position: fixed !important;
-    top: 70px !important;      /* Keeps them at the current height */
-    margin-left: 260px !important;
+    top: 150px !important;
+    margin-left: 300px !important;
     z-index: 1000 !important;
     background-color: transparent !important;
     width: auto !important;
     display: flex !important;
 }}
+/* Increase tab text size */
+div[data-baseweb="tab"] {{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}}
+
+/* Also target inner text */
+button[data-baseweb="tab"] * {{
+    font-size: 20px !important;
+
+    
+}}
 
 /* 2. Pin the Underline Border Line */
 div[data-baseweb="tab-border"] {{
     position: fixed !important;
-    top: 115px !important;       /* Pins it exactly under the tab text */
-    margin-left: 100px !important;
+    top: 200px !important;       /* Pins it exactly under the tab text */
+    margin-left: 200px !important;
     z-index: 999 !important;
     width: 70% !important;      /* Matches the look in your screenshot */
-    height: 1px !important;
+    height: 2px !important;
     background-color: rgba(0,0,0,0.2) !important;
 }}
 
@@ -124,12 +136,12 @@ with tab1:
     <style>
     /* This centers the "Data Analytics Portfolio" line */
     .brand {{
-        font-size: 40px; 
+        font-size: 50px; 
         font-weight: 800;
         color: #0f172a;
         text-align: center; 
         width: 100%;
-        margin-top: -10px;
+        margin-top: 70px;
     }}
 
     /* This pushes the box down so it doesn't hide your logo */
@@ -147,7 +159,7 @@ with tab1:
 
     /* This keeps the title on ONE line */
     .title {{
-        font-size: 26px; 
+        font-size: 35px; 
         font-weight: 850;
         background: linear-gradient(90deg, #2563eb, #06b6d4);
         -webkit-background-clip: text;
@@ -159,16 +171,18 @@ with tab1:
     .content-section {{
         margin-top: 15px;
         padding-left: 10%;
+        font-size: 25px;
     }}
 
     .module-list {{
+        font-size: 25px;
         margin-top: 10px;
         list-style-type: none;
         padding-left: 0;
     }}
 
     .module-list li {{
-        font-size: 17px;
+        font-size: 25px;
         font-weight: 600;
         margin-bottom: 5px;
         display: flex;
@@ -214,6 +228,7 @@ with tab1:
     </ul>
     </div>
     """, unsafe_allow_html=True)
+
 
 # ---------------------- Tab 2: Objective and Dataset ----------------------
 with tab2:
