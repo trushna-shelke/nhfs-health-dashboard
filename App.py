@@ -79,11 +79,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Create space equal to header height
-st.markdown(
-    "<div style='height:120px'></div>",
-    unsafe_allow_html=True
-)
+
 st.markdown(f"""
 <style>
 
